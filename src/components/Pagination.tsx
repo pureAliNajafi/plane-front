@@ -28,7 +28,13 @@ const Pagination = ({ pagination }: { pagination: any }) => {
   };
   return (
     <div className="mt-4 flex gap-5">
-      <button onClick={handlePrev}>Prev</button>
+      <button
+        onClick={handlePrev}
+        disabled={pagination.page === 1}
+        className="disabled:text-gray-400 text-blue-600"
+      >
+        Prev
+      </button>
       <div>
         Page: {pagination.page}/{pagination.pageCount}
       </div>
@@ -42,7 +48,13 @@ const Pagination = ({ pagination }: { pagination: any }) => {
           ))}
         </select>
       </div>
-      <button onClick={handleNext}>Next</button>
+      <button
+        onClick={handleNext}
+        disabled={pagination.page >= pagination.pageCount}
+        className="disabled:text-gray-400 text-blue-600"
+      >
+        Next
+      </button>
     </div>
   );
 };
