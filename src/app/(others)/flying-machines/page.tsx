@@ -10,9 +10,11 @@ export default async function Page({ searchParams }: { searchParams: FlyingMachi
   // console.log(flyingMachines.data);
   return (
     <div className="grid grid-cols-12">
-      <section className="col-span-3 bg-gray-100 p-5">
-        <label>Attributes</label>
-        {["Attack", "Defense", "Speed", "Agility", "Capacity"].map((attr) => (
+      <section className="col-span-3 bg-gray-100 p-5 flex flex-col gap-5">
+        <h2>
+          <strong>Attributes</strong>
+        </h2>
+        {["Attack", "Defence", "Speed", "Agility", "Capacity"].map((attr) => (
           <ScoreFilter key={attr} attr={attr} />
         ))}
       </section>

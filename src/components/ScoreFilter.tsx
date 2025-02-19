@@ -23,7 +23,7 @@ const ScoreFilter = ({ attr }: { attr: string }) => {
     replace(`${pathName}?${params.toString()}`);
   };
   return (
-    <div>
+    <div className="flex justify-between">
       <label>{attr}</label>
       <select
         title="filterAttrValue"

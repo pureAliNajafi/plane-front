@@ -1,4 +1,10 @@
 export type FlyingMachineSearchParams = {
+  Attack: number;
+  Defence: number;
+  Speed: number;
+  Agility: number;
+  Capacity: number;
+
   page: number;
   pageSize: number;
 };
