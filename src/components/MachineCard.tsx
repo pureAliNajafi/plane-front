@@ -1,7 +1,8 @@
+import { Machine } from "@/lib/types";
 import Image from "next/image";
 import React from "react";
 
-const MachineCard = ({ machine }: { machine: any }) => {
+const MachineCard = ({ machine }: { machine: Machine }) => {
   //   console.log(machine.Image);
   return (
     <div className="bg-zinc-100 flex flex-col gap-5 items-center py-5">

@@ -2,7 +2,7 @@ import React from "react";
 import { getFlyingMachines } from "@/lib/api";
 import MachineCard from "@/components/MachineCard";
 import Pagination from "@/components/Pagination";
-import { FlyingMachineSearchParams } from "@/lib/types";
+import { FlyingMachineSearchParams, Machine } from "@/lib/types";
 
 export default async function Page({ searchParams }: { searchParams: FlyingMachineSearchParams }) {
   const flyingMachines = await getFlyingMachines(searchParams);
@@ -13,7 +13,7 @@ export default async function Page({ searchParams }: { searchParams: FlyingMachi
       <section className="col-span-9 p-5">
         <div className="grid grid-cols-3 gap-5">
           {/* <pre>{JSON.stringify(flyingMachines.data, null, 2)}</pre> */}
-          {flyingMachines.data.map((machine: any) => (
+          {flyingMachines.data.map((machine: Machine) => (
             <MachineCard key={machine.id} machine={machine} />
           ))}
         </div>
