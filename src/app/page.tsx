@@ -8,9 +8,8 @@ export default async function Home() {
   console.log(heroText);
   return (
     <div>
-      <Header />
       <main>
-        <section className="h-[calc(100svh-64px)] bg-[url(/plane.jpg)] bg-cover bg-center bg-no-repeat sepia-[.6] p-5 flex items-end justify-end">
+        <section className="h-[calc(100svh-64px)] bg-[url(/hero.png)] bg-cover bg-center bg-no-repeat /sepia-[.6] p-5 flex items-end justify-end">
           <div className="bg-black/50 text-white p-5 backdrop-brightness-50  text-3xl max-w-[340px]">
             <h1>{heroText.data.Title}</h1>
             <p>{heroText.data.Content}</p>
@@ -43,7 +42,6 @@ export default async function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }
