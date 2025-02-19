@@ -3,26 +3,26 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent } from "react";
 
 const Pagination = ({ pagination }: { pagination: any }) => {
-  const searchParamas = useSearchParams();
+  const searchParams = useSearchParams();
   const pathName = usePathname();
   const { replace } = useRouter(); // for updating  url
 
   const handlePrev = () => {
-    const params = new URLSearchParams(searchParamas);
+    const params = new URLSearchParams(searchParams);
     let page = parseInt(params.get("page") ?? "1");
     page > 1 && page--;
     params.set("page", page.toString());
     replace(`${pathName}?${params.toString()}`); // update url with current path
   };
   const handleNext = () => {
-    const params = new URLSearchParams(searchParamas);
+    const params = new URLSearchParams(searchParams);
     let page = parseInt(params.get("page") ?? "1");
     page++;
     params.set("page", page.toString());
     replace(`${pathName}?${params.toString()}`); // update url with current path
   };
   const handlePerPage = (e: ChangeEvent<HTMLSelectElement>) => {
-    const params = new URLSearchParams(searchParamas);
+    const params = new URLSearchParams(searchParams);
     params.set("pageSize", e.target.value);
     replace(`${pathName}?${params.toString()}`);
   };
@@ -40,7 +40,11 @@ const Pagination = ({ pagination }: { pagination: any }) => {
       </div>
       <div>
         <label>Per Page</label>
-        <select title="itemsPerPage" onChange={handlePerPage}>
+        <select
+          title="itemsPerPage"
+          onChange={handlePerPage}
+          value={searchParams.get("pageSize") || "9"}
+        >
           {["9", "12"].map((n) => (
             <option key={n} value={n}>
               {n}
