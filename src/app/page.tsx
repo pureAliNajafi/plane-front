@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Image from "next/image";
-import { getHeroText } from "../../lib/api";
+import { getHeroText } from "../lib/api";
 
 export default async function Home() {
   const heroText = await getHeroText();

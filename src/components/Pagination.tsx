@@ -35,8 +35,11 @@ const Pagination = ({ pagination }: { pagination: any }) => {
       <div>
         <label>Per Page</label>
         <select title="itemsPerPage" onChange={handlePerPage}>
-          <option value="10">10</option>
-          <option value="20">20</option>
+          {["9", "12"].map((n) => (
+            <option key={n} value={n}>
+              {n}
+            </option>
+          ))}
         </select>
       </div>
       <button onClick={handleNext}>Next</button>
