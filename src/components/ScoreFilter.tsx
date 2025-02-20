@@ -28,7 +28,7 @@ const ScoreFilter = ({ attr }: { attr: string }) => {
       <select
         title="filterAttrValue"
         onChange={handleChange}
-        value={selectedScore ? parseInt(selectedScore) : undefined}
+        value={selectedScore ? parseInt(selectedScore) : -1}
       >
         <option value={-1}></option>
         {[5, 4, 3, 2, 1].map((op) => (

@@ -19,7 +19,14 @@ export type Machine = {
   Agility: number;
   Capacity: number;
   Image: { url: string; formats: { thumbnail: { url: string } } };
+  weapons: Weapon[];
 };
+
+export type Weapon = {
+  id: number;
+  Name: WeaponType;
+};
+export type WeaponType = "Gun" | "Bomb" | "Missile";
 /* 
         {
             "id": 43,

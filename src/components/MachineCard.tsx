@@ -1,4 +1,4 @@
-import { Machine } from "@/lib/types";
+import { Machine, WeaponType } from "@/lib/types";
 import Image from "next/image";
 import React from "react";
 
@@ -20,6 +20,13 @@ const MachineCard = ({ machine }: { machine: Machine }) => {
         <div>⚔️ {machine.Attack}</div>
         <div>🛡️ {machine.Defence}</div>
         <div>🚀 {machine.Speed}</div>
+      </div>
+      <div className="flex gap-5">
+        {machine.weapons.map((weapon) => (
+          <div key={weapon.id} className="bg-green-200 rounded-lg py-1 px-2 text-sm font-bold">
+            {weapon.Name}
+          </div>
+        ))}
       </div>
     </div>
   );
