@@ -16,7 +16,7 @@ export async function getHeroText() {
 export async function getFlyingMachines(searchParams: FlyingMachineSearchParams) {
   const url = new URL(API_URL + "/flying-machines");
 
-  url.searchParams.set("populate", "Image");
+  url.searchParams.set("populate[Image]", "true");
 
   ["Attack", "Defence", "Speed", "Agility", "Capacity"]
     .filter((attr) => attr in searchParams)
