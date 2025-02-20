@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 
 const Pagination = ({ pagination }: { pagination: any }) => {
   const searchParams = useSearchParams();
@@ -26,6 +26,7 @@ const Pagination = ({ pagination }: { pagination: any }) => {
     params.set("pageSize", e.target.value);
     replace(`${pathName}?${params.toString()}`);
   };
+
   return (
     <div className="mt-4 flex gap-5">
       <button

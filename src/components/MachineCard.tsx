@@ -21,7 +21,7 @@ const MachineCard = ({ machine }: { machine: Machine }) => {
         <div>🛡️ {machine.Defence}</div>
         <div>🚀 {machine.Speed}</div>
       </div>
-      <div className="flex gap-5">
+      <div className="md:w-full flex gap-5 md:gap-0 md:justify-evenly">
         {machine.weapons.map((weapon) => (
           <div key={weapon.id} className="bg-green-200 rounded-lg py-1 px-2 text-sm font-bold">
             {weapon.Name}

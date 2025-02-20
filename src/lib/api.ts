@@ -33,9 +33,27 @@ export async function getFlyingMachines(searchParams: FlyingMachineSearchParams)
   //* pagination
   url.searchParams.set("pagination[pageSize]", searchParams.pageSize?.toString() || "9");
   // Reset page to 1 if any attribute filter is applied
-  if (filteredAttributes.length > 0) url.searchParams.set("pagination[page]", "1");
-  else if (searchParams.page)
-    url.searchParams.set("pagination[page]", searchParams.page.toString());
+  // if (filteredAttributes.length > 0) url.searchParams.set("pagination[page]", "1");
+  // else if (searchParams.page) url.searchParams.set("pagination[page]", searchParams.page.toString());
+  searchParams.page && url.searchParams.set("pagination[page]", searchParams.page.toString());
+
+  const selectedWeapons = searchParams.weapons?.split(",") || [];
+  selectedWeapons &&
+    selectedWeapons.forEach(
+      (selectedWeapon, index) =>
+        url.searchParams.set(`filters[$and][${index}][weapons][id][$in]`, selectedWeapon)
+      // url.searchParams.set(`filters[$and][${index}][weapon][id][$in]`, selectedWeapon)
+    );
+
+  const res = await fetch(url, { headers: HEADERS });
+  if (!res.ok) throw new Error(`API request failed: ${res.statusText}`);
+
+  const json = await res.json();
+  return json;
+}
+
+export async function getWeapons() {
+  const url = new URL(API_URL + "/weapons");
 
   const res = await fetch(url, { headers: HEADERS });
   if (!res.ok) throw new Error(`API request failed: ${res.statusText}`);

@@ -20,6 +20,7 @@ const ScoreFilter = ({ attr }: { attr: string }) => {
     }
 
     params.set(attr, value);
+    params.set("page", "1");
     replace(`${pathName}?${params.toString()}`);
   };
   return (

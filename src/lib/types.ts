@@ -7,6 +7,8 @@ export type FlyingMachineSearchParams = {
 
   page: number;
   pageSize: number;
+
+  weapons: string;
 };
 
 export type Machine = {
