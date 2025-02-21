@@ -29,6 +29,12 @@ export type Weapon = {
   Name: WeaponType;
 };
 export type WeaponType = "Gun" | "Bomb" | "Missile";
+
+export type Message = {
+  Name: string;
+  Email: string;
+  Message: string;
+};
 /* 
         {
             "id": 43,

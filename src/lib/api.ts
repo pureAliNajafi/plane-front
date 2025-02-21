@@ -1,4 +1,4 @@
-import { FlyingMachineSearchParams } from "./types";
+import { FlyingMachineSearchParams, Message } from "./types";
 
 const API_URL = process.env.STRAPI_API_URL;
 
@@ -60,6 +60,26 @@ export async function getWeapons() {
 
   const json = await res.json();
   return json;
+}
+
+export async function createContactMessage(data: Message) {
+  try {
+    const res = await fetch(API_URL + "/content-messages", {
+      headers: HEADERS,
+      method: "POST",
+      body: JSON.stringify({ data: data }),
+    });
+    if (!res.ok) {
+      const json = await res.json();
+      console.error(json);
+      throw new Error(`API request failed: ${res.statusText}`);
+    }
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    console.error("Error: ", error);
+    throw error;
+  }
 }
 
 /*  export async function getFlyingMachines(searchParams: FlyingMachineSearchParams) {

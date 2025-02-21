@@ -20,7 +20,7 @@ export default async function Page({ searchParams }: { searchParams: FlyingMachi
         >
           ⚙️
         </label>
-        <section className="mt-16 md:mt-0 col-span-12 md:col-span-3 bg-gray-100 p-5 hidden peer-checked:flex flex-col gap-5  md:peer-checked:flex">
+        <section className="mt-16 md:mt-0 col-span-12 md:col-span-3 bg-gray-100 p-5 hidden peer-checked:flex flex-col gap-5 md:flex md:peer-checked:flex">
           <h2>
             <strong>Attributes</strong>
           </h2>

@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { getHeroText } from "../lib/api";
@@ -41,6 +40,7 @@ export default async function Home() {
             </div>
           </div>
         </section>
+        <div className="text-center py-3">{new Date().getFullYear()}</div>
       </main>
     </div>
   );
