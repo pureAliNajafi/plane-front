@@ -7,15 +7,15 @@ import { useFormState, useFormStatus } from "react-dom";
 export default function ContactForm() {
   const initialState: CreateContactFormState = {};
   const [state, dispatch] = useFormState(createContactMessageAction, initialState);
-  const [isPending, startTransition] = useTransition();
+  // const [isPending, startTransition] = useTransition();
 
   return state.success ? (
     <div className="bg-green-200 m-5 p-5">{state.success}</div>
   ) : (
     <form
-      // action={dispatch}
-      action={(formData) => startTransition(() => dispatch(formData))}
-      className="flex flex-col gap-5 bg-slate-200 p-5 m-5 justify-center items-center"
+      action={dispatch}
+      // action={(formData) => startTransition(() => dispatch(formData))}
+      className="flex flex-col gap-5 border-2 border-slate-300 p-5 m-5 justify-center items-center"
     >
       <div className="flex flex-col gap-1 w-80">
         <label>Name</label>
@@ -61,19 +61,19 @@ export default function ContactForm() {
         )}
       </div>
       <div className="flex justify-start w-80">
-        <button
+        {/* <button
           type="submit"
           className="bg-blue-700 text-white p-2 disabled:bg-gray-500"
           disabled={isPending}
         >
           {isPending ? "Sending..." : "Submit"}
-        </button>{" "}
-        {/* <SubmitButton /> */}
+        </button>{" "} */}
+        <SubmitButton />
       </div>
     </form>
   );
 }
-/* const SubmitButton = () => {
+const SubmitButton = () => {
   const data = useFormStatus();
   const isLoading = data.pending;
   return (
@@ -86,4 +86,3 @@ export default function ContactForm() {
     </button>
   );
 };
- */
