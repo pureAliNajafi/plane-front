@@ -27,7 +27,7 @@ const SortByAttribute = () => {
     const newSort = [...selectedSorts, newAttrToSort];
     params.set("sort", newSort.join(","));
     // params.set("page", "1");
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
   const handleRemoveSort = (sort: string) => {
     const params = new URLSearchParams(searchParams);
@@ -37,7 +37,7 @@ const SortByAttribute = () => {
       const newSort = [...selectedSorts].filter((s) => !s.includes(sort));
       params.set("sort", newSort.join(","));
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
   return (
     <section>
