@@ -23,7 +23,7 @@ export async function createContactMessageAction(state: CreateContactFormState, 
   if (!validated.success) {
     return { errors: validated.error.flatten().fieldErrors, message: "Invalid input" };
   }
-  await new Promise((resolve) => setTimeout(resolve, 5000)); // delay
+  // await new Promise((resolve) => setTimeout(resolve, 5000)); // delay
 
   await createContactMessage(validated.data);
   return { success: "Message received. We'll get back to you in 2 business days." };
