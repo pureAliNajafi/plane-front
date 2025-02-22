@@ -1,5 +1,4 @@
 import ContactForm from "@/components/ContactForm";
-import { createContactMessage } from "@/lib/api";
 const Page = () => {
   return <ContactForm />;
 };

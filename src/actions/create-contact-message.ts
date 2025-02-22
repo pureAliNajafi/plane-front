@@ -1,38 +1,30 @@
 "use server";
-
-import { createContactMessage } from "@/lib/api";
-import { CreateContactMessageFormState } from "@/lib/types";
 import { z } from "zod";
+import { createContactMessage } from "@/lib/api";
+import { CreateContactFormState } from "@/lib/types";
 
 const ContactSchema = z.object({
-  Name: z.string().min(1),
+  Name: z.string().min(1, { message: "required" }),
   Email: z.string().email(),
-  Message: z.string().max(1000),
+  Message: z
+    .string()
+    .min(1, { message: "required" })
+    .max(1000, { message: "maximum 1000 characters" }),
 });
 
-export async function createContactMessageAction(
-  state: CreateContactMessageFormState,
-  formData: FormData
-) {
-  console.log(formData);
-
-  const validatedFields = await ContactSchema.safeParseAsync({
+export async function createContactMessageAction(state: CreateContactFormState, formData: any) {
+  const validated = await ContactSchema.safeParseAsync(Object.fromEntries(formData));
+  /*   const validatedFields = await ContactSchema.safeParseAsync({
     Name: formData.get("Name"),
     Email: formData.get("Email"),
     Message: formData.get("Message"),
-  });
+  }); */
 
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: "bad request",
-    };
+  if (!validated.success) {
+    return { errors: validated.error.flatten().fieldErrors, message: "Invalid input" };
   }
+  // await new Promise((resolve) => setTimeout(resolve, 5000)); // delay
 
-  await createContactMessage(validatedFields.data);
-
-  return {
-    success:
-      "Rest assured, your inquiry will reach cruising altitude and receive a prompt response with 2 business days.",
-  };
+  await createContactMessage(validated.data);
+  return { success: "Message received. We'll get back to you in 2 business days." };
 }
