@@ -35,6 +35,15 @@ export type Message = {
   Email: string;
   Message: string;
 };
+export interface CreateContactMessageFormState {
+  errors?: {
+    Name?: string[];
+    Email?: string[];
+    Message?: string[];
+  };
+  message?: string;
+  success?: string;
+}
 /* 
         {
             "id": 43,

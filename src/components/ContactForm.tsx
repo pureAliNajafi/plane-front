@@ -1,67 +1,80 @@
-import { z } from "zod";
+"use client";
 
-const schema = z.object({
-  Name: z.string().min(1, { message: "Name is required" }),
-  Email: z.string().email({ message: "Invalid email address" }),
-  Message: z.string().max(1000, { message: "Message cannot exceed 1000 characters" }),
-});
+import { createContactMessageAction } from "@/actions/create-contact-message";
+import { CreateContactMessageFormState } from "@/lib/types";
+import { useFormState } from "react-dom";
 
-const ContactForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries());
+export default function ContactForm() {
+  const initialState: CreateContactMessageFormState = {};
+  const [state, dispatch] = useFormState(createContactMessageAction, initialState);
 
-    const result = schema.safeParse(data);
-
-    if (result.success) {
-      onSubmit(result.data);
-    } else {
-      console.error(result.error.flatten());
-    }
-  };
+  if (state.success) {
+    return <div className="bg-green-200 m-5 p-5">{state.success}</div>;
+  }
 
   return (
-    <div className="max-w-md mx-auto my-8 p-4 border border-gray-300 rounded">
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="Name" className="block text-gray-700">
-            Name
-          </label>
-          <input
-            type="text"
-            id="Name"
-            name="Name"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="Email" className="block text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
-            id="Email"
-            name="Email"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="Message" className="block text-gray-700">
-            Message
-          </label>
-          <textarea
-            id="Message"
-            name="Message"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
-        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
+    <form
+      action={dispatch}
+      className="flex flex-col gap-5 /bg-slate-200 p-5 m-5 justify-center items-center"
+    >
+      <div className="flex flex-col gap-1 w-80">
+        <label>Name</label>
+        <input
+          title="Name input"
+          type="text"
+          name="Name"
+          className="border-2 border-slate-500 p-2"
+        />
+        {state.errors?.Name && (
+          <div>
+            {state.errors.Name.map((err) => (
+              <p key={err} className="text-red-600">
+                {err}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col gap-1 w-80">
+        <label>Email</label>
+        <input
+          title="Email input"
+          type="text"
+          name="Email"
+          className="border-2 border-slate-500 p-2"
+        />
+        {state.errors?.Email && (
+          <div>
+            {state.errors.Email.map((err) => (
+              <p key={err} className="text-red-600">
+                {err}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="flex flex-col gap-1 w-80">
+        <label>Message</label>
+        <textarea
+          title="Message input"
+          name="Message"
+          className="border-2 border-slate-500 p-2"
+        ></textarea>
+        {state.errors?.Message && (
+          <div>
+            {state.errors.Message.map((err) => (
+              <p key={err} className="text-red-600">
+                {err}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="flex justify-start w-80">
+        <button type="submit" className="bg-blue-700 text-white p-2">
           Submit
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   );
-};
-
-export default ContactForm;
+}

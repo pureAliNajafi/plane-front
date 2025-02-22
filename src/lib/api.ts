@@ -63,11 +63,12 @@ export async function getWeapons() {
 }
 
 export async function createContactMessage(data: Message) {
+  console.log("logged");
   try {
-    const res = await fetch(API_URL + "/content-messages", {
+    const res = await fetch(`${API_URL}/contact-messages`, {
       headers: HEADERS,
       method: "POST",
-      body: JSON.stringify({ data: data }),
+      body: JSON.stringify({ data }), // Correct the structure of the body
     });
     if (!res.ok) {
       const json = await res.json();
@@ -75,6 +76,7 @@ export async function createContactMessage(data: Message) {
       throw new Error(`API request failed: ${res.statusText}`);
     }
     const json = await res.json();
+    console.log(json);
     return json;
   } catch (error) {
     console.error("Error: ", error);
