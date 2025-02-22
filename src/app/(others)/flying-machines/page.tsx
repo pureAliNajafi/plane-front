@@ -35,14 +35,18 @@ export default async function Page({ searchParams }: { searchParams: FlyingMachi
           <SortByAttribute />
         </section>
         <section className="col-span-12 md:col-span-9 p-5 mt-10 md:mt-0">
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-            {/* <pre>{JSON.stringify(flyingMachines.data, null, 2)}</pre> */}
-            {flyingMachines.data.map((machine: Machine) => (
-              <MachineCard key={machine.id} machine={machine} />
-            ))}
-          </div>
-
-          <Pagination pagination={flyingMachines.meta.pagination} />
+          {flyingMachines.data.length > 0 ? (
+            <>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+                {flyingMachines.data.map((machine: Machine) => (
+                  <MachineCard key={machine.id} machine={machine} />
+                ))}
+              </div>
+              <Pagination pagination={flyingMachines.meta.pagination} />
+            </>
+          ) : (
+            <div className="text-center py-5">No Data To Display</div>
+          )}
         </section>
       </div>
     </>

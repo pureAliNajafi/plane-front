@@ -11,6 +11,8 @@ export type FlyingMachineSearchParams = {
   weapons: string;
 
   sort: string;
+
+  search: string;
 };
 
 export type Machine = {

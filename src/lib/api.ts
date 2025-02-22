@@ -1,3 +1,4 @@
+import { Search } from "@/components/Search";
 import { attributes } from "@/config/attributes";
 import { FlyingMachineSearchParams, Message } from "./types";
 
@@ -19,6 +20,9 @@ export async function getFlyingMachines(searchParams: FlyingMachineSearchParams)
 
   url.searchParams.set("populate[Image]", "true");
   url.searchParams.set("populate[weapons]", "true");
+
+  //* search filter
+  searchParams.search && url.searchParams.set("filters[Name][$contains]", searchParams.search);
 
   //* attributes filter
   const filteredAttributes = attributes.filter((attr) => attr in searchParams);

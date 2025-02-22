@@ -17,6 +17,7 @@ export function Search() {
       } else {
         params.delete("search");
       }
+      params.set("page", "1");
       router.replace(`${path}?${params.toString()}`, { scroll: false });
     });
   };
