@@ -1,3 +1,4 @@
+import { attributes } from "@/config/attributes";
 import { FlyingMachineSearchParams, Message } from "./types";
 
 const API_URL = process.env.STRAPI_API_URL;
@@ -20,7 +21,6 @@ export async function getFlyingMachines(searchParams: FlyingMachineSearchParams)
   url.searchParams.set("populate[weapons]", "true");
 
   //* attributes filter
-  const attributes = ["Attack", "Defence", "Speed", "Agility", "Capacity"];
   const filteredAttributes = attributes.filter((attr) => attr in searchParams);
 
   filteredAttributes.forEach((attr) => {

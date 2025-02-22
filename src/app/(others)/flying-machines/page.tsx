@@ -5,6 +5,8 @@ import Pagination from "@/components/Pagination";
 import { FlyingMachineSearchParams, Machine } from "@/lib/types";
 import ScoreFilter from "@/components/ScoreFilter";
 import WeaponsFilter from "@/components/WeaponsFilter";
+import { attributes } from "@/config/attributes";
+import SortByAttribute from "@/components/SortByAttribute";
 
 export default async function Page({ searchParams }: { searchParams: FlyingMachineSearchParams }) {
   const flyingMachines = await getFlyingMachines(searchParams);
@@ -24,10 +26,11 @@ export default async function Page({ searchParams }: { searchParams: FlyingMachi
           <h2>
             <strong>Attributes</strong>
           </h2>
-          {["Attack", "Defence", "Speed", "Agility", "Capacity"].map((attr) => (
+          {attributes.map((attr) => (
             <ScoreFilter key={attr} attr={attr} />
           ))}
           <WeaponsFilter weapons={weapons.data} />
+          <SortByAttribute />
         </section>
         <section className="col-span-12 md:col-span-9 p-5 mt-10 md:mt-0">
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">

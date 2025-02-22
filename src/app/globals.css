@@ -5,3 +5,7 @@ input,
 textarea {
   outline: 0;
 }
+/* html {
+  background-color: aliceblue;
+  filter: invert(1) hue-rotate(180deg);
+} */
