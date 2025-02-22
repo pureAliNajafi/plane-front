@@ -5,6 +5,17 @@ input,
 textarea {
   outline: 0;
 }
+
+/* Hide default search input appearance */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none; /* This hides the button */
+}
+
 /* html {
   background-color: aliceblue;
   filter: invert(1) hue-rotate(180deg);

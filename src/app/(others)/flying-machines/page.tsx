@@ -7,6 +7,7 @@ import ScoreFilter from "@/components/ScoreFilter";
 import WeaponsFilter from "@/components/WeaponsFilter";
 import { attributes } from "@/config/attributes";
 import SortByAttribute from "@/components/SortByAttribute";
+import { Search } from "@/components/Search";
 
 export default async function Page({ searchParams }: { searchParams: FlyingMachineSearchParams }) {
   const flyingMachines = await getFlyingMachines(searchParams);
@@ -23,6 +24,7 @@ export default async function Page({ searchParams }: { searchParams: FlyingMachi
           ⚙️
         </label>
         <section className="mt-16 md:mt-0 col-span-12 md:col-span-3 bg-gray-100 p-5 hidden peer-checked:flex flex-col gap-5 md:flex md:peer-checked:flex">
+          <Search />
           <h2>
             <strong>Attributes</strong>
           </h2>
