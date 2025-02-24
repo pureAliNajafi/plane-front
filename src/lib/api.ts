@@ -92,6 +92,18 @@ export async function createContactMessage(data: Message) {
   }
 }
 
+export async function getFlyingMachineById(id: string) {
+  const url = new URL(API_URL + `/flying-machines/${id}`);
+
+  url.searchParams.set("populate[Image]", "true");
+
+  const res = await fetch(url, { headers: HEADERS });
+  if (!res.ok) throw new Error(`API request failed: ${res.statusText}`);
+
+  const json = await res.json();
+  return json;
+}
+
 /*  export async function getFlyingMachines(searchParams: FlyingMachineSearchParams) {
   const url = new URL(API_URL + "/flying-machines?populate=Image");
 

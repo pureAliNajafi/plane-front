@@ -17,6 +17,7 @@ export type FlyingMachineSearchParams = {
 
 export type Machine = {
   id: number;
+  documentId: string;
   Name: string;
   Description: string;
   Attack: number;
@@ -24,7 +25,7 @@ export type Machine = {
   Speed: number;
   Agility: number;
   Capacity: number;
-  Image: { url: string; formats: { thumbnail: { url: string } } };
+  Image: { url: string; formats: { thumbnail: { url: string }; small: { url: string } } };
   weapons: Weapon[];
 };
 
