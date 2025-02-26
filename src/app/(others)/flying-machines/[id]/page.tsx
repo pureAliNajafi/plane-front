@@ -23,6 +23,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             width={500}
             placeholder="blur"
             blurDataURL="/loading-gif.gif"
+            className="w-full"
           />
         </div>
         <div>

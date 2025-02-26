@@ -9,8 +9,6 @@ import LoadingSpinner from "./LoadingSpinner";
 Chart.register(...registerables);
 
 const RadarChart = ({ attrs }: { attrs: any }) => {
-  const [loading, setLoading] = useState(true);
-
   const data = {
     labels: attributes,
     datasets: [
@@ -24,32 +22,30 @@ const RadarChart = ({ attrs }: { attrs: any }) => {
     ],
   };
   return (
-    <div className="w-full h-full">
-      {loading && (
-        <span className={` w-full h-full flex items-center justify-center`}>
-          <LoadingSpinner className="w-[40%] h-[40%]" />
-        </span>
-      )}
-      <div
-        className={loading ? "hidden" : "block"} // preventing layout shift
-      >
-        <Radar
-          data={data}
-          options={{
-            scales: {
-              r: {
-                suggestedMin: 0,
-                suggestedMax: 5,
-                ticks: {
-                  stepSize: 1, // Forces whole numbers
-                  // callback: (value) => value.toString(), // Ensures no decimal formatting
-                },
+    <div className="w-full h-full relative flex items-center justify-center">
+      <Radar
+        data={data}
+        options={{
+          scales: {
+            r: {
+              suggestedMin: 0,
+              suggestedMax: 5,
+              ticks: {
+                stepSize: 1, // Forces whole numbers
+                // callback: (value) => value.toString(), // Ensures no decimal formatting
               },
             },
-            animation: { onComplete: () => setLoading(false) },
-          }}
-        />
-      </div>
+          },
+          animation: {
+            easing: "easeInSine",
+            // onComplete: () => setLoading(false),
+            // onProgress: (event) => {
+            //   const loadPercent = (event.currentStep / event.numSteps) * 100;
+            //   console.log((event.currentStep / event.numSteps) * 100);
+            // },
+          },
+        }}
+      />
     </div>
   );
 };
