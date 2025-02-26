@@ -1,16 +1,10 @@
-import { Search } from "@/components/Search";
 import { attributes } from "@/config/attributes";
 import { FlyingMachineSearchParams, Message } from "./types";
 import axios from "axios";
+import { http } from "@/core/services/apiClient";
 
-const API_URL = process.env.STRAPI_API_URL;
-
-const HEADERS = {
-  Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
-  "Content-Type": "application/json",
-};
 export async function getHeroText() {
-  const { data } = await axios.get(`${API_URL}/hero-text`, { headers: HEADERS });
+  const { data } = await axios.get(`/hero-text`);
   return data;
 }
 
@@ -45,34 +39,41 @@ export async function getFlyingMachines(searchParams: FlyingMachineSearchParams)
       params[`sort[${index}]`] = attr;
     });
 
-  const { data } = await axios.get(`${API_URL}/flying-machines`, {
-    headers: HEADERS,
+  const { data } = await http.get(`/flying-machines`, {
     params,
   });
   return data;
 }
 
 export async function getWeapons() {
-  const response = await axios.get(`${API_URL}/weapons`, { headers: HEADERS });
+  const response = await http.get(`/weapons`);
   return response.data;
 }
 
 export async function createContactMessage(data: Message) {
   console.log("logged");
 
-  const response = await axios.post(`${API_URL}/contact-messages`, { data }, { headers: HEADERS });
+  // const response = await axios.post(`/contact-messages`, { data }, { headers: HEADERS });
+  const response = await http.post(`/contact-messages`, { data });
 
   console.log(response.data);
   return response.data;
 }
 
 export async function getFlyingMachineById(id: string) {
-  const response = await axios.get(`${API_URL}/flying-machines/${id}`, {
-    headers: HEADERS,
+  const response = await http.get(`/flying-machines/${id}`, {
     params: { "populate[Image]": "true" },
   });
   return response.data;
 }
+
+//############## Default js
+// const API_URL = process.env.STRAPI_API_URL;
+
+// const HEADERS = {
+//   Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+//   "Content-Type": "application/json",
+// };
 
 //  export async function getHeroText() {
 //   const res = await fetch(API_URL + "/hero-text", { headers: HEADERS });
