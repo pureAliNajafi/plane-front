@@ -1,10 +1,9 @@
 import { attributes } from "@/config/attributes";
 import { FlyingMachineSearchParams, Message } from "./types";
-import axios from "axios";
 import { http } from "@/core/services/apiClient";
 
 export async function getHeroText() {
-  const { data } = await axios.get(`/hero-text`);
+  const { data } = await http.get(`/hero-text`);
   return data;
 }
 
