@@ -49,6 +49,11 @@ export type CreateContactFormState = {
   message?: string;
   success?: string;
 };
+export type SignUpFormState = {
+  errors?: { username?: string[]; email?: string[]; password?: string[] };
+  message?: string;
+  success?: string;
+};
 /* 
         {
             "id": 43,

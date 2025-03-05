@@ -1,6 +1,7 @@
 import { attributes } from "@/config/attributes";
 import { FlyingMachineSearchParams, Message } from "./types";
 import { http } from "@/core/services/apiClient";
+import axios from "axios";
 
 export async function getHeroText() {
   const { data } = await http.get(`/hero-text`);
@@ -64,6 +65,18 @@ export async function getFlyingMachineById(id: string) {
     params: { "populate[Image]": "true" },
   });
   return response.data;
+}
+
+export async function registerUser(data: { username: string; email: string; password: string }) {
+  try {
+    const res = await axios.post(`${process.env.STRAPI_API_URL}/auth/local/register`, {
+      data,
+    });
+
+    return res.data;
+  } catch (error: any) {
+    return { error: error.response?.data?.message || "Something went wrong" };
+  }
 }
 
 //############## Default js
