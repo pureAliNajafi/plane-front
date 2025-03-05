@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/Navbar";
 import Image from "next/image";
 import { getHeroText } from "../lib/api";
 
