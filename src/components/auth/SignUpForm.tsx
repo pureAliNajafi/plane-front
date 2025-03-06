@@ -9,6 +9,8 @@ export default function SignUpForm() {
 
   return state.success ? (
     <div className="bg-green-200 m-5 p-5">{state.success}</div>
+  ) : state.message ? (
+    <div className="bg-red-200 m-5 p-5">{state.message}</div>
   ) : (
     <form action={dispatch} className="flex flex-col gap-5 border-2 border-slate-300 p-5 m-5">
       <div className="flex flex-col gap-1 w-80">

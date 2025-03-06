@@ -67,15 +67,21 @@ export async function getFlyingMachineById(id: string) {
   return response.data;
 }
 
-export async function registerUser(data: { username: string; email: string; password: string }) {
+export async function registerUser(userData: {
+  username: string;
+  email: string;
+  password: string;
+}) {
   try {
-    const res = await axios.post(`${process.env.STRAPI_API_URL}/auth/local/register`, {
-      data,
+    const res = await axios.post(`${process.env.STRAPI_API_URL}/auth/local/register`, userData, {
+      headers: { "Content-Type": "application/json" },
     });
 
+    console.log(res);
     return res.data;
   } catch (error: any) {
-    return { error: error.response?.data?.message || "Something went wrong" };
+    console.error("Registration Error:", error.response?.data); // Log the full error response
+    return { error: error.response?.data?.error?.message || "Something went wrong" };
   }
 }
 

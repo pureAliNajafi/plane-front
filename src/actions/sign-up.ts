@@ -22,7 +22,7 @@ export async function signUpAction(state: SignUpFormState, formData: FormData) {
   const res = await registerUser(validated.data);
 
   if (res.error) {
-    return { message: JSON.stringify(res.error.message) };
+    return { message: res.error as string };
   }
 
   return { success: "Account created successfully!" };
