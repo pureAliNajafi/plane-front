@@ -1,6 +1,6 @@
 "use server";
-import { cookies } from "next/headers";
+import { deleteAuthToken } from "@/lib/cookies";
 
 export async function logoutAction() {
-  cookies().delete("token"); // ✅ Remove the authentication token
+  deleteAuthToken(); // ✅ Remove token using centralized utility
 }
