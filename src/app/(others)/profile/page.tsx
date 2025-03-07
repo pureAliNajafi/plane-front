@@ -1,11 +1,19 @@
-import LogOutButton from "@/components/auth/LogOutButton";
+"use client";
+import { useAuthStore } from "@/store/authStore";
 
-const page = () => {
+export default function Page() {
+  const { isAuthenticated, logout } = useAuthStore();
+
   return (
     <div>
-      profile <LogOutButton />
+      {isAuthenticated ? (
+        <>
+          <p>Welcome! You are logged in.</p>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <p>Please log in.</p>
+      )}
     </div>
   );
-};
-
-export default page;
+}
