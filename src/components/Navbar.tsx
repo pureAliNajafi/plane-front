@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { checkAuthStatus } from "@/actions/auth/auth-status";
+import { checkAuthStatusAction } from "@/actions/auth/auth-status";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    checkAuthStatus().then(setIsAuthenticated);
+    checkAuthStatusAction().then(setIsAuthenticated);
   }, []);
 
   return (

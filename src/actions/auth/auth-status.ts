@@ -4,7 +4,7 @@ import { jwtVerify } from "jose";
 
 const JWT_SECRET = process.env.STRAPI_JWT_SECRET;
 
-export async function checkAuthStatus(): Promise<boolean> {
+export async function checkAuthStatusAction(): Promise<boolean> {
   const token = cookies().get("token")?.value;
   if (!token) return false;
 
