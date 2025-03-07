@@ -1,21 +1,22 @@
 import { NextResponse, NextRequest } from "next/server";
-import { jwtVerify } from "jose";
-import { getAuthToken, deleteAuthToken } from "@/lib/cookies";
+import { jwtVerify } from "jose"; // ✅ Use `jose` instead of `jsonwebtoken`
 
 const JWT_SECRET = process.env.STRAPI_JWT_SECRET;
-const encoder = new TextEncoder();
+
+const encoder = new TextEncoder(); // Required for `jose` key encoding
 
 export async function middleware(req: NextRequest) {
   const protectedRoutes = ["/profile"];
   const authRoutes = ["/auth/sign-in", "/auth/sign-up"];
 
-  // ✅ Get token using utility function
-  const token = getAuthToken();
+  // ✅ Get token from cookies
+  const token = req.cookies.get("token")?.value;
 
   let isValidToken = false;
+
   if (token) {
     try {
-      await jwtVerify(token, encoder.encode(JWT_SECRET!));
+      await jwtVerify(token, encoder.encode(JWT_SECRET!)); // ✅ Use `jose` for verification
       isValidToken = true;
     } catch (error) {
       console.error("Invalid Token:", (error as Error).message);
@@ -25,7 +26,7 @@ export async function middleware(req: NextRequest) {
   // ✅ Redirect unauthenticated users from protected pages
   if (!isValidToken && protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
     const response = NextResponse.redirect(new URL("/auth/sign-in", req.url));
-    deleteAuthToken(); // ✅ Remove fake token
+    response.cookies.delete("token"); // Remove fake token
     return response;
   }
 
@@ -39,5 +40,5 @@ export async function middleware(req: NextRequest) {
 
 // ✅ Middleware applies to specific routes
 export const config = {
-  matcher: ["/profile", "/auth/:path*"],
+  matcher: ["/profile", "/auth/:path*"], // 👈 Ensures middleware runs on these paths
 };
