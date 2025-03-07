@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { registerUser } from "@/lib/api";
 import { SignUpFormState } from "@/lib/types";
+import { cookies } from "next/headers";
 
 const SignUpSchema = z.object({
   username: z.string().min(3, { message: "Username must be at least 3 characters long" }),
@@ -24,6 +25,14 @@ export async function signUpAction(state: SignUpFormState, formData: FormData) {
   if (res.error) {
     return { message: res.error as string };
   }
+
+  // ✅ Store JWT in HTTP-only cookie
+  cookies().set("token", res.jwt, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+  });
 
   return { success: "Account created successfully!" };
 }

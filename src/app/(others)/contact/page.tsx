@@ -1,10 +1,6 @@
 import ContactForm from "@/components/ContactForm";
 const Page = () => {
-  return (
-    <div className="min-h-[calc(100svh-64px)] flex items-center justify-center">
-      <ContactForm />
-    </div>
-  );
+  return <ContactForm />;
 };
 /* const Page = async () => {
   await createContactMessage({

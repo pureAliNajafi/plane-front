@@ -67,24 +67,41 @@ export async function getFlyingMachineById(id: string) {
   return response.data;
 }
 
-export async function registerUser(userData: {
+/* export async function registerUser(userData: {
   username: string;
   email: string;
   password: string;
 }) {
   try {
-    const res = await axios.post(`${process.env.STRAPI_API_URL}/auth/local/register`, userData, {
-      headers: { "Content-Type": "application/json" },
-    });
-
+    const res = await http.post("/auth/local/register", userData);
     console.log(res);
     return res.data;
   } catch (error: any) {
     console.error("Registration Error:", error.response?.data); // Log the full error response
     return { error: error.response?.data?.error?.message || "Something went wrong" };
   }
+} */
+export async function registerUser(userData: {
+  username: string;
+  email: string;
+  password: string;
+}) {
+  return http
+    .post("/auth/local/register", userData)
+    .then((res) => res.data)
+    .catch((error) => ({
+      error: error.response?.data?.error?.message || "Invalid credentials",
+    }));
 }
 
+export async function loginUser(userData: { email: string; password: string }) {
+  return http
+    .post("/auth/local", { identifier: userData.email, password: userData.password })
+    .then((res) => res.data)
+    .catch((error) => ({
+      error: error.response?.data?.error?.message || "Invalid credentials",
+    }));
+}
 //############## Default js
 // const API_URL = process.env.STRAPI_API_URL;
 

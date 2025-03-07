@@ -54,6 +54,11 @@ export type SignUpFormState = {
   message?: string;
   success?: string;
 };
+export type SignInState ={
+  errors?: {  email?: string[]; password?: string[] };
+  message?: string;
+  success?: string;
+}
 /* 
         {
             "id": 43,
