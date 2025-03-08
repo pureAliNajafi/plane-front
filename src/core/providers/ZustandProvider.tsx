@@ -16,14 +16,5 @@ export default function ZustandProvider({ children }: { children: React.ReactNod
       });
   }, [setAuthenticateStatus, setAuthPending]);
 
-  return (
-    <>
-      {authPending
-        ? "Checking authentication..."
-        : isAuthenticated
-        ? "Authenticated"
-        : "not Authenticated"}
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
