@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { SignInState } from "@/lib/types";
 import { loginUser } from "@/lib/api";
-import { setAuthToken } from "@/lib/cookies";
+import { setAuthCookies } from "@/lib/cookies/auth";
 
 const LoginSchema = z.object({
   email: z.string().email({ message: "Invalid email format" }),
@@ -19,7 +19,8 @@ export async function signInAction(state: SignInState, formData: FormData) {
   const res = await loginUser(validated.data);
   if (res.error) return { message: res.error as string };
 
-  setAuthToken(res.jwt); // ✅ Store token using centralized utility
+  await setAuthCookies(res.jwt, res.user.username, res.user.email); // ✅ Call async function
+  // const {setAuthenticateStatus}=useAuthStore()
 
   return { success: "Logged in successfully!" };
 }

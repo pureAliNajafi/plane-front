@@ -5,12 +5,17 @@ import { SignInState } from "@/lib/types";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
+import useAuthStore from "@/store/authStore";
 
 export default function SignIn() {
   const initialState: SignInState = {};
   const [state, dispatch] = useFormState(signInAction, initialState);
+  const { setAuthenticateStatus } = useAuthStore();
 
-  state.success && redirect("/profile");
+  if (state.success) {
+    setAuthenticateStatus(true); // ✅ Update Zustand on client
+    redirect("/profile");
+  }
 
   return state.message ? (
     <div className="bg-red-200 m-5 p-5">{state.message}</div>

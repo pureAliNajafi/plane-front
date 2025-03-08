@@ -2,7 +2,8 @@
 import { z } from "zod";
 import { registerUser } from "@/lib/api";
 import { SignUpFormState } from "@/lib/types";
-import { setAuthToken } from "@/lib/cookies";
+import { setAuthCookies } from "@/lib/cookies/auth";
+import useAuthStore from "@/store/authStore";
 
 const SignUpSchema = z.object({
   username: z.string().min(3, { message: "Username must be at least 3 characters long" }),
@@ -20,7 +21,8 @@ export async function signUpAction(state: SignUpFormState, formData: FormData) {
   const res = await registerUser(validated.data);
   if (res.error) return { message: res.error as string };
 
-  setAuthToken(res.jwt); // ✅ Store token using centralized utility
+  await setAuthCookies(res.jwt, res.user.username, res.user.email); // ✅ Call async function
+  // useAuthStore.getState().login(res.user.username, res.user.email); // ✅ Update UI state
 
   return { success: "Account created successfully!" };
 }

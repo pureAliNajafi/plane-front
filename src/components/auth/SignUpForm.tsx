@@ -1,6 +1,7 @@
 "use client";
 import { signUpAction } from "@/actions/auth/sign-up";
 import { SignUpFormState } from "@/lib/types";
+import useAuthStore from "@/store/authStore";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
@@ -8,7 +9,12 @@ import { useFormState, useFormStatus } from "react-dom";
 export default function SignUpForm() {
   const initialState: SignUpFormState = {};
   const [state, dispatch] = useFormState(signUpAction, initialState);
-  state.success && redirect("/profile");
+  const { setAuthenticateStatus } = useAuthStore();
+
+  if (state.success) {
+    setAuthenticateStatus(true); // ✅ Update Zustand on client
+    redirect("/profile");
+  }
   return state.message ? (
     <div className="bg-red-200 m-5 p-5">{state.message}</div>
   ) : (
