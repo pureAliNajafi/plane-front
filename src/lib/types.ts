@@ -54,11 +54,18 @@ export type SignUpFormState = {
   message?: string;
   success?: string;
 };
-export type SignInState ={
-  errors?: {  email?: string[]; password?: string[] };
+export type SignInState = {
+  errors?: { email?: string[]; password?: string[] };
   message?: string;
   success?: string;
-}
+};
+export type CounterState = {
+  count: number;
+  increment: () => void;
+  decrement: () => void;
+  reset: () => void;
+};
+
 /* 
         {
             "id": 43,
