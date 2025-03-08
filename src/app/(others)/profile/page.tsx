@@ -1,17 +1,25 @@
 "use client";
 import LogOutButton from "@/components/auth/LogOutButton";
 import Counter from "@/components/Counter";
+import { getClientAuthCookies } from "@/lib/cookies/client";
 import useCounterStore from "@/store/counterStore";
 
 export default function Page() {
   // const { isAuthenticated, logout } = useAuthStore();
   const { count } = useCounterStore();
+
+  const { username, email } = getClientAuthCookies();
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-2xl">Profile</h1>
       <div className="border-2 border-gray-400 p-3">
         <h3 className="text-xl font-bold text-orange-400">Count: {count}</h3>
         <Counter />
+      </div>
+      <div>
+        {username}
+        <br />
+        {email}
       </div>
       <div>
         <LogOutButton />

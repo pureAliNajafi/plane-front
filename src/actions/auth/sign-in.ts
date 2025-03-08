@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { SignInState } from "@/lib/types";
 import { loginUser } from "@/lib/api";
-import { setAuthCookies } from "@/lib/cookies/auth";
+import { setAuthCookies } from "@/lib/cookies/server";
 
 const LoginSchema = z.object({
   email: z.string().email({ message: "Invalid email format" }),

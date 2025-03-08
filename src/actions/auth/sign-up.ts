@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { registerUser } from "@/lib/api";
 import { SignUpFormState } from "@/lib/types";
-import { setAuthCookies } from "@/lib/cookies/auth";
+import { setAuthCookies } from "@/lib/cookies/server";
 import useAuthStore from "@/store/authStore";
 
 const SignUpSchema = z.object({
