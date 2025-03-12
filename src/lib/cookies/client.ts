@@ -1,8 +1,4 @@
-export const getClientAuthCookies = () => {
-  if (typeof document === "undefined") {
-    return { token: null, username: null, email: null }; // ✅ Prevents error on server
-  }
-
+export const getPublicAuthData = () => {
   const getCookie = (name: string) => {
     const value =
       document.cookie
@@ -13,7 +9,6 @@ export const getClientAuthCookies = () => {
   };
 
   return {
-    token: getCookie("token"),
     username: getCookie("username"),
     email: getCookie("email"), // ✅ Now correctly displays "test@mail.com"
   };

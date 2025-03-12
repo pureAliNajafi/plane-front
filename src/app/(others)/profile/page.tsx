@@ -1,14 +1,19 @@
 "use client";
 import LogOutButton from "@/components/auth/LogOutButton";
 import Counter from "@/components/Counter";
-import { getClientAuthCookies } from "@/lib/cookies/client";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { getPublicAuthData } from "@/lib/cookies/client";
 import useCounterStore from "@/store/counterStore";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   // const { isAuthenticated, logout } = useAuthStore();
   const { count } = useCounterStore();
-
-  const { username, email } = getClientAuthCookies();
+  const [userdata, setUserdata] = useState<any>(null);
+  useEffect(() => {
+    const { username, email } = getPublicAuthData();
+    setUserdata({ username, email });
+  }, []);
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-2xl">Profile</h1>
@@ -16,11 +21,18 @@ export default function Page() {
         <h3 className="text-xl font-bold text-orange-400">Count: {count}</h3>
         <Counter />
       </div>
-      <div>
-        {username}
-        <br />
-        {email}
+      <div className="h-10 w-full flex items-center">
+        {userdata ? (
+          <div>
+            {userdata.username}
+            <br />
+            {userdata.email}
+          </div>
+        ) : (
+          <LoadingSpinner className="h-10 w-10" />
+        )}
       </div>
+
       <div>
         <LogOutButton />
       </div>
