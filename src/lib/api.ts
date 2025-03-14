@@ -1,6 +1,6 @@
 import { attributes } from "@/config/attributes";
 import { FlyingMachineSearchParams, Message } from "./types";
-import { http } from "@/core/services/apiClient";
+import { http } from "@/core/services/interceptor";
 import axios from "axios";
 
 export async function getHeroText() {

@@ -4,7 +4,7 @@ import { getHeroText } from "../lib/api";
 
 export default async function Home() {
   const heroText = await getHeroText();
-  console.log(heroText);
+  // console.log(heroText);
   return (
     <div>
       <main>

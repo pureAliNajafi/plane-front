@@ -8,15 +8,16 @@ import React, { Suspense } from "react";
 const Page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const machine = await getFlyingMachineById(id); //documentId
-  const likeStatus = await getFlyingMachineLikeStatusById(String(machine.data.id));
-  console.log(machine, likeStatus);
+  const machineId = machine.data.id;
+  const likeStatus = await getFlyingMachineLikeStatusById(String(machineId));
+  // console.log(machine, likeStatus);
   return (
     <div>
       <div className="flex justify-between mt-5">
         <h2 className="text-2xl">
           <strong>{machine.data.Name}</strong>
         </h2>
-        <MachineLike likeStatus={likeStatus} />
+        <MachineLike machineId={machineId} likeStatus={likeStatus} />
       </div>
 
       <div className="grid md:grid-cols-2 gap-5 p-5  ">

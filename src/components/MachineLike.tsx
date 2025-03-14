@@ -1,19 +1,46 @@
 "use client";
-import { MachineLikeStatus } from "@/lib/types";
-import React from "react";
 
-const MachineLike = ({ likeStatus }: { likeStatus: MachineLikeStatus }) => {
+import { MachineLikeStatus } from "@/lib/types";
+import { useState, useTransition } from "react";
+import { toggleLikeFlyingMachine } from "@/actions/toggle-like-flying-machine"; // Import your API function
+import LoadingSpinner from "./LoadingSpinner";
+
+const MachineLike = ({
+  machineId,
+  likeStatus,
+}: {
+  machineId: string;
+  likeStatus: MachineLikeStatus;
+}) => {
+  const [likes, setLikes] = useState(likeStatus.count);
+  const [userLiked, setUserLiked] = useState(likeStatus.userAlreadyLiked);
+  const [isPending, startTransition] = useTransition(); // Optimized loading state
+
+  const handleLikeToggle = () => {
+    startTransition(async () => {
+      try {
+        const response = await toggleLikeFlyingMachine(machineId.toString()); // Replace with actual id
+        setLikes((prev) => (response.liked ? prev + 1 : Math.max(0, prev - 1)));
+        setUserLiked(response.liked);
+      } catch (error) {
+        console.error("Error toggling like:", error);
+      }
+    });
+  };
+
   return (
     <div className="ring-1 flex justify-around h-8">
       <div className="h-full flex items-center justify-center px-2 select-none">
-        <span>{likeStatus.count}</span>
+        <span>{likes}</span>
       </div>
       <button
-        className={`block bg-slate-300 h-full p-1 px-2 ${
-          likeStatus.userAlreadyLiked ? "text-sky-500" : "text-gray-500"
-        }`}
+        onClick={handleLikeToggle}
+        className={` w-16 block bg-slate-200 h-full p-1 px-2 ${
+          userLiked ? "text-sky-500" : "text-gray-500"
+        } ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
+        disabled={isPending}
       >
-        LIKE
+        {isPending ? <LoadingSpinner className="w-6 mx-auto" /> : "LIKE"}
       </button>
     </div>
   );

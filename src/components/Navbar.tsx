@@ -32,7 +32,7 @@ const Navbar = () => {
               -sign In-
             </Link> */}
             {authPending ? (
-              <span className="flex items-center justify-center">
+              <span className="flex items-center justify-center mt-1">
                 <LoadingSpinner className="w-4 h-4" />
               </span>
             ) : isAuthenticated ? (

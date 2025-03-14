@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 
-export async function checkTokenAction(): Promise<boolean> {
-  const token = cookies().get("token")?.value;
-  return Boolean(token);
+export async function getTokenAction(): Promise<string | null> {
+  const token = cookies().get("token")?.value || null;
+  return token;
 }
