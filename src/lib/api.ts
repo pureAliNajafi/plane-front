@@ -2,6 +2,7 @@ import { attributes } from "@/config/attributes";
 import { FlyingMachineSearchParams, Message } from "./types";
 import { http } from "@/core/services/interceptor";
 import axios from "axios";
+import { cookies } from "next/headers";
 
 export async function getHeroText() {
   const { data } = await http.get(`/hero-text`);
@@ -67,12 +68,31 @@ export async function getFlyingMachineById(id: string) {
   return response.data;
 }
 export async function getFlyingMachineLikeStatusById(id: string) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value || "";
   const response = await http.get("/likes/status", {
     params: { flyingMachineId: id },
+    headers: {
+      Authorization: `Bearer ${token}`, // Corrected syntax
+    },
   });
+
   return response.data;
 }
 
+/* export async function getFlyingMachineLikeStatusById(id: string) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+  const response = await http.get("/likes/status", {
+    params: { flyingMachineId: id },
+    headers: {
+      Authorization: `Bearer ${token?.value}`, // Corrected syntax
+    },
+  });
+
+  return response.data;
+}
+ */
 /* export async function registerUser(userData: {
   username: string;
   email: string;
@@ -108,6 +128,25 @@ export async function loginUser(userData: { email: string; password: string }) {
       error: error.response?.data?.error?.message || "Invalid credentials",
     }));
 }
+
+export async function getUserLikedFlyingMachines(searchParams: FlyingMachineSearchParams) {
+  const params: Record<string, string> = {
+    "pagination[pageSize]": searchParams.pageSize?.toString() || "9",
+    "pagination[page]": searchParams.page?.toString() || "1",
+  };
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+  const response = await http.get("/likes/user-flying-machines", {
+    params,
+    headers: {
+      Authorization: `Bearer ${token?.value}`, // Corrected syntax
+    },
+  });
+
+  return response.data;
+}
+
 //############## Default js
 // const API_URL = process.env.STRAPI_API_URL;
 

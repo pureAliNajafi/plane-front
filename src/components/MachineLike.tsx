@@ -4,6 +4,7 @@ import { MachineLikeStatus } from "@/lib/types";
 import { useState, useTransition } from "react";
 import { toggleLikeFlyingMachine } from "@/actions/toggle-like-flying-machine"; // Import your API function
 import LoadingSpinner from "./LoadingSpinner";
+import useAuthStore from "@/store/authStore";
 
 const MachineLike = ({
   machineId,
@@ -16,7 +17,12 @@ const MachineLike = ({
   const [userLiked, setUserLiked] = useState(likeStatus.userAlreadyLiked);
   const [isPending, startTransition] = useTransition(); // Optimized loading state
 
+  const { isAuthenticated } = useAuthStore();
   const handleLikeToggle = () => {
+    if (!isAuthenticated) {
+      alert("must sign in first");
+      return;
+    }
     startTransition(async () => {
       try {
         const response = await toggleLikeFlyingMachine(machineId.toString()); // Replace with actual id

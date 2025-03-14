@@ -1,6 +1,8 @@
 "use client";
 import { createContactMessageAction } from "@/actions/create-contact-message";
+import { getPublicAuthData } from "@/lib/cookies/client";
 import { CreateContactFormState } from "@/lib/types";
+import useAuthStore from "@/store/authStore";
 import { useTransition } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -8,7 +10,7 @@ export default function ContactForm() {
   const initialState: CreateContactFormState = {};
   const [state, dispatch] = useFormState(createContactMessageAction, initialState);
   // const [isPending, startTransition] = useTransition();
-
+  const { username, email } = getPublicAuthData();
   return state.success ? (
     <div className="bg-green-200 m-5 p-5">{state.success}</div>
   ) : (
@@ -19,7 +21,13 @@ export default function ContactForm() {
     >
       <div className="flex flex-col gap-1 w-80">
         <label>Name</label>
-        <input title="Name" type="text" name="Name" className="border-2 border-slate-500 p-2" />
+        <input
+          title="Name"
+          type="text"
+          name="Name"
+          className="border-2 border-slate-500 p-2"
+          value={username || ""}
+        />
         {state.errors?.Name && (
           <div>
             {state.errors.Name.map((err) => (
@@ -32,7 +40,13 @@ export default function ContactForm() {
       </div>
       <div className="flex flex-col gap-1 w-80">
         <label>Email</label>
-        <input title="Email" type="text" name="Email" className="border-2 border-slate-500 p-2" />
+        <input
+          title="Email"
+          type="text"
+          name="Email"
+          className="border-2 border-slate-500 p-2"
+          value={email || ""}
+        />
         {state.errors?.Email && (
           <div>
             {state.errors.Email.map((err) => (
