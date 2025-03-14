@@ -66,6 +66,12 @@ export async function getFlyingMachineById(id: string) {
   });
   return response.data;
 }
+export async function getFlyingMachineLikeStatusById(id: string) {
+  const response = await http.get("/likes/status", {
+    params: { flyingMachineId: id },
+  });
+  return response.data;
+}
 
 /* export async function registerUser(userData: {
   username: string;

@@ -1,18 +1,23 @@
 import MachineCard from "@/components/MachineCard";
+import MachineLike from "@/components/MachineLike";
 import RadarChart from "@/components/RadarChart";
-import { getFlyingMachineById } from "@/lib/api";
+import { getFlyingMachineById, getFlyingMachineLikeStatusById } from "@/lib/api";
 import Image from "next/image";
 import React, { Suspense } from "react";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
-  const machine = await getFlyingMachineById(id);
-  console.log(machine);
+  const machine = await getFlyingMachineById(id); //documentId
+  const likeStatus = await getFlyingMachineLikeStatusById(String(machine.data.id));
+  console.log(machine, likeStatus);
   return (
     <div>
-      <h2 className="mt-5 text-2xl">
-        <strong>{machine.data.Name}</strong>
-      </h2>
+      <div className="flex justify-between mt-5">
+        <h2 className="text-2xl">
+          <strong>{machine.data.Name}</strong>
+        </h2>
+        <MachineLike likeStatus={likeStatus} />
+      </div>
 
       <div className="grid md:grid-cols-2 gap-5 p-5  ">
         <div>

@@ -65,7 +65,10 @@ export type CounterState = {
   decrement: () => void;
   reset: () => void;
 };
-
+export type MachineLikeStatus = {
+  count: number;
+  userAlreadyLiked: boolean;
+};
 /* 
         {
             "id": 43,
