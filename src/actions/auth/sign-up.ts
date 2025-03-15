@@ -3,7 +3,6 @@ import { z } from "zod";
 import { registerUser } from "@/lib/api";
 import { SignUpFormState } from "@/lib/types";
 import { setAuthCookies } from "@/lib/cookies/server";
-import useAuthStore from "@/store/authStore";
 
 const SignUpSchema = z.object({
   username: z.string().min(3, { message: "Username must be at least 3 characters long" }),

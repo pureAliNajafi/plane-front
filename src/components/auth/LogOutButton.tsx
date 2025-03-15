@@ -1,7 +1,7 @@
 "use client";
 import { deleteAuthCookies } from "@/lib/cookies/server";
 import useAuthStore from "@/store/authStore";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const LogOutButton = () => {

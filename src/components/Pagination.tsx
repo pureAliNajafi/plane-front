@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent } from "react";
 
 const Pagination = ({ pagination }: { pagination: any }) => {
   const searchParams = useSearchParams();

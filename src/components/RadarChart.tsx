@@ -2,8 +2,6 @@
 import { attributes } from "@/config/attributes";
 import { Radar } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import { useState } from "react";
-import LoadingSpinner from "./LoadingSpinner";
 
 // Register all necessary components
 Chart.register(...registerables);

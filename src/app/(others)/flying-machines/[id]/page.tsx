@@ -1,9 +1,8 @@
-import MachineCard from "@/components/MachineCard";
 import MachineLike from "@/components/MachineLike";
 import RadarChart from "@/components/RadarChart";
 import { getFlyingMachineById, getFlyingMachineLikeStatusById } from "@/lib/api";
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React from "react";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { id } = params;

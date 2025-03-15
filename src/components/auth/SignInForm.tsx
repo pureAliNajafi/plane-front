@@ -4,7 +4,6 @@ import { useFormState, useFormStatus } from "react-dom";
 import { SignInState } from "@/lib/types";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
 import useAuthStore from "@/store/authStore";
 
 export default function SignIn() {

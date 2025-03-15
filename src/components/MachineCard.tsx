@@ -1,4 +1,4 @@
-import { Machine, WeaponType } from "@/lib/types";
+import { Machine } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

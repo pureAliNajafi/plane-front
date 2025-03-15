@@ -4,7 +4,6 @@ import Counter from "@/components/Counter";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { getPublicAuthData } from "@/lib/cookies/client";
 import useCounterStore from "@/store/counterStore";
-import { LikeValidator } from "@hookform/resolvers/fluentvalidation-ts/src/__tests__/__fixtures__/data.js";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

@@ -2,11 +2,9 @@
 
 import { cookies } from "next/headers";
 
-// const EXPIRATION_INTERVAL = 7 * 24 * 60 * 60 * 1000; // 7 days
-const EXPIRATION_INTERVAL = 6 * 60 * 1000; // 60 seconds
 export async function setAuthCookies(token: string, username: string, email: string) {
-  // const EXPIRATION_INTERVAL = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
-  const EXPIRATION_INTERVAL = 10 * 1000; // test
+  const EXPIRATION_INTERVAL = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+  // const EXPIRATION_INTERVAL = 10 * 1000; // test
   const EXPIRATION_TIMESTAMP = Date.now() + EXPIRATION_INTERVAL; // ✅ Store as a timestamp
   const EXPIRATION_DATE = new Date(EXPIRATION_TIMESTAMP);
   cookies().set("token", token, {
