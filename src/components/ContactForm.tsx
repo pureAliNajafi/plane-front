@@ -2,13 +2,18 @@
 import { createContactMessageAction } from "@/actions/create-contact-message";
 import { getPublicAuthData } from "@/lib/cookies/client";
 import { CreateContactFormState } from "@/lib/types";
+import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 export default function ContactForm() {
   const initialState: CreateContactFormState = {};
   const [state, dispatch] = useFormState(createContactMessageAction, initialState);
   // const [isPending, startTransition] = useTransition();
-  const { username, email } = getPublicAuthData();
+  const [userdata, setUserdata] = useState<any>(null);
+  useEffect(() => {
+    const { username, email } = getPublicAuthData();
+    setUserdata({ username, email });
+  }, []);
   return state.success ? (
     <div className="bg-green-200 m-5 p-5">{state.success}</div>
   ) : (
@@ -24,7 +29,7 @@ export default function ContactForm() {
           type="text"
           name="Name"
           className="border-2 border-slate-500 p-2"
-          value={username || ""}
+          value={userdata.username || ""}
         />
         {state.errors?.Name && (
           <div>
@@ -43,7 +48,7 @@ export default function ContactForm() {
           type="text"
           name="Email"
           className="border-2 border-slate-500 p-2"
-          value={email || ""}
+          value={userdata.email || ""}
         />
         {state.errors?.Email && (
           <div>
