@@ -2,8 +2,6 @@
 import { createContactMessageAction } from "@/actions/create-contact-message";
 import { getPublicAuthData } from "@/lib/cookies/client";
 import { CreateContactFormState } from "@/lib/types";
-import useAuthStore from "@/store/authStore";
-import { useTransition } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 export default function ContactForm() {
