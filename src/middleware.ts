@@ -24,6 +24,7 @@ export async function middleware(req: NextRequest) {
 
     // ✅ Correctly delete cookies in response
     response.cookies.delete("token");
+    response.cookies.delete("expire");
     response.cookies.delete("username");
     response.cookies.delete("email");
 
@@ -38,5 +39,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile", "/auth/:path*"],
+  matcher: ["/profile/:path*", "/auth/:path*"],
 };

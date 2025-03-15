@@ -5,6 +5,7 @@ import { useState, useTransition } from "react";
 import { toggleLikeFlyingMachine } from "@/actions/toggle-like-flying-machine"; // Import your API function
 import LoadingSpinner from "./LoadingSpinner";
 import useAuthStore from "@/store/authStore";
+import { toast } from "react-toastify";
 
 const MachineLike = ({
   machineId,
@@ -20,7 +21,14 @@ const MachineLike = ({
   const { isAuthenticated } = useAuthStore();
   const handleLikeToggle = () => {
     if (!isAuthenticated) {
-      alert("must sign in first");
+      toast.error("⚠️ Must sign in first.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       return;
     }
     startTransition(async () => {
@@ -42,7 +50,7 @@ const MachineLike = ({
       <button
         onClick={handleLikeToggle}
         className={` w-16 block bg-slate-200 h-full p-1 px-2 ${
-          userLiked ? "text-sky-500" : "text-gray-500"
+          isAuthenticated && userLiked ? "text-sky-500" : "text-gray-500"
         } ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
         disabled={isPending}
       >

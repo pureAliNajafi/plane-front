@@ -5,7 +5,7 @@ import useAuthStore from "@/store/authStore";
 import { getPublicAuthData } from "@/lib/cookies/client";
 
 export default function ZustandProvider({ children }: { children: React.ReactNode }) {
-  const { setAuthPending, setAuthenticateStatus } = useAuthStore();
+  const { isAuthenticated, setAuthPending, setAuthenticateStatus } = useAuthStore();
 
   useEffect(() => {
     const { email } = getPublicAuthData();
@@ -13,7 +13,7 @@ export default function ZustandProvider({ children }: { children: React.ReactNod
       setAuthenticateStatus(true);
     }
     setAuthPending(false);
-    console.log("token:", email);
+    console.log("email:", email);
   }, []);
 
   return <>{children}</>;

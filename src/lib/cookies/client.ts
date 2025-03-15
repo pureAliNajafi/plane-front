@@ -9,7 +9,8 @@ export const getPublicAuthData = () => {
   };
 
   return {
+    expire: parseInt(getCookie("expire") || ""), // ✅ Convert to number //returns null or NaN
     username: getCookie("username"),
-    email: getCookie("email"), // ✅ Now correctly displays "test@mail.com"
+    email: getCookie("email"),
   };
 };

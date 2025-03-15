@@ -2,36 +2,37 @@
 
 import { cookies } from "next/headers";
 
-const TOKEN_NAME = "token";
-const USER_NAME = "username";
-const EMAIL_NAME = "email";
-
-const EXPIRATION_INTERVAL = 7 * 24 * 60 * 60 * 1000; // 7 days
-const EXPIRATION_DATE = new Date(Date.now() + EXPIRATION_INTERVAL);
-
+// const EXPIRATION_INTERVAL = 7 * 24 * 60 * 60 * 1000; // 7 days
+const EXPIRATION_INTERVAL = 6 * 60 * 1000; // 60 seconds
 export async function setAuthCookies(token: string, username: string, email: string) {
-  cookies().set(TOKEN_NAME, token, {
+  // const EXPIRATION_INTERVAL = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+  const EXPIRATION_INTERVAL = 10 * 1000; // test
+  const EXPIRATION_TIMESTAMP = Date.now() + EXPIRATION_INTERVAL; // ✅ Store as a timestamp
+  const EXPIRATION_DATE = new Date(EXPIRATION_TIMESTAMP);
+  cookies().set("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
     path: "/",
-    expires: EXPIRATION_DATE,
+    expires: new Date(EXPIRATION_TIMESTAMP), // ✅ Still needs a Date object here
   });
 
-  cookies().set(USER_NAME, username, { path: "/", expires: EXPIRATION_DATE });
-  cookies().set(EMAIL_NAME, email, { path: "/", expires: EXPIRATION_DATE });
+  cookies().set("expire", EXPIRATION_TIMESTAMP.toString(), { path: "/", expires: EXPIRATION_DATE }); // ✅ Store timestamp as a string
+  cookies().set("username", username, { path: "/", expires: EXPIRATION_DATE });
+  cookies().set("email", email, { path: "/", expires: EXPIRATION_DATE });
 }
-
 export async function getAuthCookies() {
   return {
-    token: cookies().get(TOKEN_NAME)?.value || null,
-    username: cookies().get(USER_NAME)?.value || null,
-    email: cookies().get(EMAIL_NAME)?.value || null,
+    token: cookies().get("token")?.value || null,
+    expire: cookies().get("expire")?.value || null,
+    username: cookies().get("username")?.value || null,
+    email: cookies().get("email")?.value || null,
   };
 }
 
 export async function deleteAuthCookies() {
-  cookies().delete(TOKEN_NAME);
-  cookies().delete(USER_NAME);
-  cookies().delete(EMAIL_NAME);
+  cookies().delete("token");
+  cookies().delete("expire");
+  cookies().delete("username");
+  cookies().delete("email");
 }

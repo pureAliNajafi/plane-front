@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import ZustandProvider from "@/core/providers/ZustandProvider";
+import TokenTimerProvider from "@/core/providers/TokenTimerProvider";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,10 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ZustandProvider>
-          <Navbar /> {children}
+          <TokenTimerProvider>
+            <ToastContainer className="top-[64px]" />
+            <Navbar /> {children}
+          </TokenTimerProvider>
         </ZustandProvider>
       </body>
     </html>
