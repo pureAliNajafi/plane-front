@@ -23,13 +23,6 @@ const Navbar = () => {
             <Link href="/contact">Contact</Link>
           </li>
           <li className="min-w-14">
-            {/* <Link href="/profile" className=" font-bold">
-              -profile-
-            </Link>
-            <span>------</span>
-            <Link href="/auth/sign-in" className=" font-bold">
-              -sign In-
-            </Link> */}
             {authPending ? (
               <span className="flex items-center justify-center mt-1">
                 <LoadingSpinner className="w-4 h-4" />
