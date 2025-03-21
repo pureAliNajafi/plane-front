@@ -15,9 +15,9 @@ const Navbar = () => {
         <div>
           <Link href="/">🛫 Warbirds</Link>
         </div>
-        <ul className="flex gap-5">
+        <ul className="flex gap-4 md:gap-5">
           <li>
-            <Link href="/flying-machines">Flying Machines</Link>
+            <Link href="/flying-machines">Machines</Link>
           </li>
           <li>
             <Link href="/contact">Contact</Link>
